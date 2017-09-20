@@ -58,11 +58,11 @@ public:
 
 #### Initialization {#initialization}
 
-_Initialization _is the process of giving an object its first value. For objects generated from structs and classes, initialization is performed by constructors.
+\_Initialization \_is the process of giving an object its first value. For objects generated from structs and classes, initialization is performed by constructors.
 
 #### Default Constructors
 
-A _Default Constructor _is one the can be called without any arguments. Such a constructor has no parameters or has a default value for every parameter:
+A \_Default Constructor \_is one the can be called without any arguments. Such a constructor has no parameters or has a default value for every parameter:
 
 ```cpp
 class A
@@ -84,7 +84,7 @@ public:
 };
 ```
 
-The constructor for `class B` and `class C` are declared **`explicit`** here. That prevent them from being used to perform implicit type conversions, though they may still be used for explicit type conversions, **`explicit`** is usually preferred because it prevent compilers from performing unexpected \(often unintended\) type conversions.
+The constructor for `class B` and `class C` are declared `explicit` here. That prevent them from being used to perform implicit type conversions, though they may still be used for explicit type conversions, `explicit` is usually preferred because it prevent compilers from performing unexpected \(often unintended\) type conversions.
 
 
 
