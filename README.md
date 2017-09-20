@@ -4,11 +4,11 @@
 
 Effective C++ is one of the best book for improving C++ programs and designs by using C++ best practices. And this book is recommended to every one pursuing career as a C++ developer, So I am writing down this short summary for my own personal use to have a short and to the point summary of the book for future use.
 
-## Terminologies used in this book.
+## Terminologies used in this book. {#terminologies-used-in-this-book}
 
 ---
 
-#### Declaration
+#### Declaration {#declaration}
 
 A _Declaration tells compiler about the name and type of something, but it omits certain details. For Example:_
 
@@ -19,15 +19,13 @@ class Widget;                            // class declaration
 template<typename T> class GraphNode;    // template delaration
 ```
 
-#### Signature
+#### Signature {#signature}
 
-Each function's declaration reveals its _signature _i.e. its parameter and return types. A function's signature is the same as its types. In the case of 
+Each function's declaration reveals its _signature _i.e. its parameter and return types. A function's signature is the same as its types. In the case of `numDigits`, the signature is `size_t(int)`_, i.e. _"Function taking an `int` and returning `std::size_t`."
 
-```cpp
 
-```
 
- 
 
- 
+
+
 
