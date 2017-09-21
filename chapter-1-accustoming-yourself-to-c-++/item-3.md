@@ -17,6 +17,7 @@ void f1(const Widget *pw);      //  f1 takes apointer to constant Widget object
 void f2(Widget const *pw);      //  so does f2
 ```
 * In **STL** `iterator` acts much like a `T*` pointer. Declaring an `iterator` `const` is like declaring a pointer `const` (i.e. declaring a `T *const` pointer). The STL analogue to a `const T*` pointer is <b>`const_pointer`</b>
+
 ```C++
 std::vector<int> vec;
 
@@ -32,8 +33,9 @@ One of the most powerful uses of ```const``` is its application to <i>function d
 * ```const``` can refer to the function return type,
 * to individual parameters,
 * and, for member functions, to the function as a whole.
-#### ```const``` Member Functions
-The purpose of ```const``` on member functions is to identify which member functions may be invoked on ```const``` objects. One of the fundamental ways to improve a C++ program's performance is to pass objects by **reference-to-const**. That technique is viable only if there are ```const``` member functions with which to manipulate the resulting const-qualified objects.
+
+#### `const` Member Functions
+The purpose of `const` on member functions is to identify which member functions may be invoked on `const` objects. One of the fundamental ways to improve a C++ program's performance is to pass objects by **reference-to-const**. That technique is viable only if there are `const` member functions with which to manipulate the resulting const-qualified objects.
 ```C++
 class TextBlock
 {
@@ -51,30 +53,30 @@ private:
   std::string text;
 };
 ```
-**Note:** The return *type* of the non-const ```operator[]``` is a *reference* to a ```char``` — a ```char``` itself would not do. if ```operator[]``` did return a simple ```char```, statements like this wouldn't compile:
+**Note:** The return *type* of the non-const `operator[]` is a *reference* to a `char` — a `char` itself would not do. if `operator[]` did return a simple `char`, statements like this wouldn't compile:
 ```C++
 tab[0] = 'x';
 ```
-That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of ```tb.text[0]``` would be modified, not ```tb.text[0]``` itself, and that's not the behaviour we want.
-```TextBlock``` ```operator[]``` can be used like this:
+That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behaviour we want.
+`TextBlock` `operator[]` can be used like this:
 ```C++
 TextBlock tb("Hello");
-std::cout << tb[0];                                               //  call non-const TextBlock::operator[]
+std::cout << tb[0];       //  call non-const TextBlock::operator[]
 
 void print(const TextBlock& ctb)                                  //  in this function, ctb is const
 {
-  st::cout << ctb[0];                                             //  call const TextBlock::operator[]
+  st::cout << ctb[0];    //  call const TextBlock::operator[]
 }
 ```
-By overloading ```operator[]``` and giving the different versions different return <i>types</i>, you can have ```const``` and ```non-const``` ```TextBlock``` handled differently.
+By overloading `operator[]` and giving the different versions different return _types_, you can have `const` and `non-const` `TextBlock` handled differently.
 ```C++
-std::cout << tb[0];                                               //  fine - reading a non-const TextBlock
-tb[0] = 'x';                                                      //  fine - writing a non-const TextBlock
-std::cout << ctb[0];                                              //  fine - reading a const TextBlock
-ctb[0] = 'x';                                                     //  error - writing a const TextBlock
+std::cout << tb[0];    //  fine - reading a non-const TextBlock
+tb[0] = 'x';           //  fine - writing a non-const TextBlock
+std::cout << ctb[0];   //  fine - reading a const TextBlock
+ctb[0] = 'x';          //  error - writing a const TextBlock
 ```
-**Note:** The error here has only to do with the return <i>type</i> of the ```operator[]``` that is called; the calls to ```operator[]``` themselves are all fine. The error arises out of an attempt to make an assignment to a ```const char&```, because that's the return type from the ```const``` version of ```operator[]```.
-#### Avoiding Duplication in ```const``` and Non-```const``` Member Functions
+**Note:** The error here has only to do with the return _type_ of the `operator[]` that is called; the calls to `operator[]` themselves are all fine. The error arises out of an attempt to make an assignment to a `const char&`, because that's the return type from the `const` version of `operator[]`.
+#### Avoiding Duplication in `const` and non-`const` Member Functions
 ```C++
 class TextBlock 
 {
