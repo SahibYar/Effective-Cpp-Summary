@@ -41,11 +41,11 @@ class TextBlock
 {
 public:
   ...
-  const char& operator[](std::size_t position) const                //  operator[] for const objects
+  const char& operator[](std::size_t position) const  //  operator[] for const objects
   {
     return text[position];
   }
-  char& operator[](std::size_t position)                            //  operator[] for non-const objects
+  char& operator[](std::size_t position)             //  operator[] for non-const objects
   {
     return text[position];
   }
@@ -63,7 +63,7 @@ That's because it's never legal to modify the return value of a function that re
 TextBlock tb("Hello");
 std::cout << tb[0];       //  call non-const TextBlock::operator[]
 
-void print(const TextBlock& ctb)                                  //  in this function, ctb is const
+void print(const TextBlock& ctb)  //  in this function, ctb is const
 {
   st::cout << ctb[0];    //  call const TextBlock::operator[]
 }
@@ -120,9 +120,9 @@ public:
   char& operator[](std::size_t position) // now just calls const op[]
   {
     return 
-      const_cast<char&>(                                            // cast away const on operator[] return type;
-        static_cast<const TextBlock&>(*this)                        // add const to *this’s type;
-          [position]                                                // call const version of op[]
+      const_cast<char&>(  // cast away const on operator[] return type;
+        static_cast<const TextBlock&>(*this)  // add const to *this’s type;
+          [position]  // call const version of op[]
       );
   }
   ...
