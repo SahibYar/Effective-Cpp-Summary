@@ -10,7 +10,7 @@ Effective C++ is one of the best book for improving C++ programs and designs by 
 
 #### Declaration {#declaration}
 
-A _Declaration tells compiler about the name and type of something, but it omits certain details. For Example:_
+A _Declaration_ tells compiler about the name and type of something, but it omits certain details. For Example:
 
 ```cpp
 extern int size;                         // object declaration
@@ -21,7 +21,7 @@ template<typename T> class GraphNode;    // template delaration
 
 #### Signature {#signature}
 
-Each function's declaration reveals its _signature \_i.e. its parameter and return types. A function's signature is the same as its types. In the case of _`numDigits`_, the signature is _`size_t(int)`, i.e. \_"Function taking an `int` and returning `std::size_t`."
+Each function's declaration reveals its _signature_ i.e. its parameter and return types. A function's signature is the same as its types. In the case of `numDigits`, the signature is `size_t(int)`, i.e. "Function taking an `int` and returning `std::size_t`."
 
 #### Definition {#definition}
 
@@ -58,11 +58,11 @@ public:
 
 #### Initialization {#initialization}
 
-\_Initialization \_is the process of giving an object its first value. For objects generated from structs and classes, initialization is performed by constructors.
+_Initialization_ is the process of giving an object its first value. For objects generated from structs and classes, initialization is performed by constructors.
 
 #### Default Constructors
 
-A \_Default Constructor \_is one the can be called without any arguments. Such a constructor has no parameters or has a default value for every parameter:
+A _Default Constructor_ is one the can be called without any arguments. Such a constructor has no parameters or has a default value for every parameter:
 
 ```cpp
 class A
@@ -84,7 +84,7 @@ public:
 };
 ```
 
-The constructor for `class B` and `class C` are declared `explicit` here. That prevent them from being used to perform implicit type conversions, though they may still be used for explicit type conversions, `explicit` is usually preferred because it prevent compilers from performing unexpected \(often unintended\) type conversions.
+The constructor for `class B` and `class C` are declared <b>`explicit`</b> here. That prevent them from being used to perform implicit type conversions, though they may still be used for explicit type conversions, <b>`explicit`</b> is usually preferred because it prevent compilers from performing unexpected (often unintended) type conversions.
 
 
 
