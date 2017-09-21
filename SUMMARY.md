@@ -6,5 +6,13 @@
   * [Item 2](chapter-1-accustoming-yourself-to-c-++/item-2.md)
   * [Item 3](chapter-1-accustoming-yourself-to-c-++/item-3.md)
   * [Item 4](chapter-1-accustoming-yourself-to-c-++/item-4.md)
-* Chapter 2 - Constructors, Destructors, and Assignment Operators
+* [Chapter 2 - Constructors, Destructors, and Assignment Operators](chapter-2-constructors-destructors-and-assignment-operators.md)
+  * [Item 5](chapter-2-constructors-destructors-and-assignment-operators/item-5.md)
+  * [Item 6](chapter-2-constructors-destructors-and-assignment-operators/item-6.md)
+  * [Item 7](chapter-2-constructors-destructors-and-assignment-operators/item-7.md)
+  * [Item 8](chapter-2-constructors-destructors-and-assignment-operators/item-8.md)
+  * [Item 9](chapter-2-constructors-destructors-and-assignment-operators/item-9.md)
+  * [Item 10](chapter-2-constructors-destructors-and-assignment-operators/item-10.md)
+  * [Item 11](chapter-2-constructors-destructors-and-assignment-operators/item-11.md)
+  * [Item 12](chapter-2-constructors-destructors-and-assignment-operators/item-12.md)
 
