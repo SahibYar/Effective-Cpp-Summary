@@ -86,5 +86,28 @@ public:
 
 The constructor for `class B` and `class C` are declared <b>`explicit`</b> here. That prevent them from being used to perform implicit type conversions, though they may still be used for explicit type conversions, <b>`explicit`</b> is usually preferred because it prevent compilers from performing unexpected (often unintended) type conversions.
 
+#### Copy Constructor vs Copy Assignment Operator {#copy-constructor-vs-copy-assignment-operator}
+The _copy constructor_ is used to initialize an object with a different object of the same type, and the _copy assignment operator_ is used to copy the value from one object to another of the same type:
+```C++
+class Widget
+{
+public:
+  Widget();                                 //  default constructor
+  Widget(const Widget& rhs);                //  copy constructor
+  Widget& operator=(const Widget& rhs);     //  copy assignment operator
+  .....
+};
+
+Widget w1;                                  //  invoke default constructor
+Widget w2(w1);                              //  invoke copy constructor
+w1 = w2;                                    //  invoke copy assignment operator
+Widget w3 = w2;                             //  invoke copy constructor
+```
+Fortunately, copy constructor is easy to distinguish from copy assignment. If a new object is being defined, a constructor has to be called; it can't be assignment. If no new object is being defined, no constructor can be involved, so it's an assignment.
+
+### Standard Template Library (STL)
+<i>STL</i> is the part of C++'s standard library devoted to [containers](http://en.cppreference.com/w/cpp/container) (e.g., [vector](http://en.cppreference.com/w/cpp/container/vector), [list](http://en.cppreference.com/w/cpp/container/list), [set](http://en.cppreference.com/w/cpp/container/set), [map](http://en.cppreference.com/w/cpp/container/map), etc), [iterators](http://en.cppreference.com/w/cpp/iterator) (e.g., ```vector<int>::iterator```, ```set<string>::iterator```, etc.), [algorithms](http://en.cppreference.com/w/cpp/algorithm) (e.g. ```for_each```, ```find```,```sort``` etc.), and related functionality.
+
+
 
 
