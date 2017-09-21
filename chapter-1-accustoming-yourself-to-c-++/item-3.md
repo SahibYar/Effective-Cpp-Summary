@@ -84,25 +84,26 @@ public:
   ...
   const char& operator[](std::size_t position) const
   {
-    ...                                                         // do bounds checking
-    ...                                                         // log access data
-    ...                                                         // verify data integrity
+    ...      // do bounds checking
+    ...      // log access data
+    ...      // verify data integrity
     return text[position];
   }
 
   char& operator[](std::size_t position)
   {
-    ...                                                         // do bounds checking
-    ...                                                         // log access data
-    ...                                                         // verify data integrity
+    ...      // do bounds checking
+    ...      // log access data
+    ...      // verify data integrity
     return text[position];
   }
 private:
  std::string text;
 };
 ```
-To avoid code duplication, it is possible to move all the code for bound checking, etc. into a separate member function that both versions of ```operator[]``` call, but you have still got the duplicated calls to that function and you've still got the duplicated ```return``` statement code. The ```const``` version of ```operator``` does exactly what the non-```const``` version does, it just a ```const```-qualified ```return``` type.
-Casting away the ```const``` on the ```return``` value is safe, in this case because whoever called the non-```const``` ```operator[]``` must have had a non-```const``` object in the first place. Otherwise they couldn't have called a non-```const``` function. So having the non-```const``` ```operator[]``` call the ```const``` version is a safe way to avoid code duplication, even though it requires a cast.
+To avoid code duplication, it is possible to move all the code for bound checking, etc. into a separate member function that both versions of `operator[]` call, but you have still got the duplicated calls to that function and you've still got the duplicated `return` statement code. The `const` version of `operator` does exactly what the non-`const` version does, it just a `const`- qualified `return` type.
+
+Casting away the `const` on the `return` value is safe, in this case because whoever called the non-`const` `operator[]` must have had a non-`const` object in the first place. Otherwise they couldn't have called a non-`const` function. So having the non-`const` `operator[]` call the `const` version is a safe way to avoid code duplication, even though it requires a cast.
 ```C++
 class TextBlock 
 {
@@ -127,9 +128,9 @@ public:
   ...
 };
 ```
-This code has two casts, not one. We want the non-```const``` ```operator[]``` to call the ```const``` one, but if, inside the non-```const``` ```operator[]```, we just call ```operator[]```, we will recursively call ourselves. To avoid infinite recursion, we have to specify that we want to call the ```const``` ```operator[]```, but there's no direct way to do that. Instead, we cast ```*this``` (so that our call to ```operator[]``` will call the ```const``` version) which is just forcing a safe conversion (from a non-```const``` object to a ```const``` one), so we use a **```static_cast```**, the second to remove the ```const``` from the ```const``` ```operator[]``` ```return``` value via **```const_cast```**.
+This code has two casts, not one. We want the non-`const` `operator[]` to call the `const` one, but if, inside the non-`const` `operator[]`, we just call `operator[]`, we will recursively call ourselves. To avoid infinite recursion, we have to specify that we want to call the `const` `operator[]`, but there's no direct way to do that. Instead, we cast `*this` (so that our call to `operator[]` will call the `const` version) which is just forcing a safe conversion (from a non-`const` object to a `const` one), so we use a **`static_cast`**, the second to remove the `const` from the `const` `operator[]` `return` value via **`const_cast`**.
 
 **Things to Remember:**
-* Declaring something ```const``` helps compilers detect usage errors. ```const``` can be applied to objects at any scope, to function parameters and return types, and to member functions as a whole.
+* Declaring something `const` helps compilers detect usage errors. `const` can be applied to objects at any scope, to function parameters and return types, and to member functions as a whole.
 * Compilers enforce bitwise constness, but you should program using conceptual constness.
-* When ```const``` and non-```const``` member functions have essentially identical implementations, code duplication can be avoided by having the non-```const``` version call the ```const``` version.
+* When `const` and non-`const` member functions have essentially identical implementations, code duplication can be avoided by having the non-`const` version call the `const` version.
