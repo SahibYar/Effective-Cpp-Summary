@@ -13,5 +13,5 @@ some of the most fundamental things of all.
 
 [**Item 3:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-3.html) <b>Use `const` whenever possible.</b>
 
-**Item 4:** Make sure that objects are initialized before
-they’re used.
+[**Item 4:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) <b>Make sure that objects are initialized before
+they’re used.</b>
