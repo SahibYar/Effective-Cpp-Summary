@@ -53,7 +53,8 @@ ABEntry::ABEntry(const std::string& name, const std::string& address, const std:
       {}                                // the ctor body is now empty
 ```
 This constructor yields the same end results as the one above, but it will ofter be more efficient. The assignment-based version first called default constructors to initialize the `theName`, `the Address`, and `thePhones`, then promptly assigned new values on top of the default-constructed ones. All the work performed in those default constructions was therefore wasted. The member initialization list apporach avoids that problem, because the arguments in the initialization list are used as constructors arguments for the various data members. In this case `theName` is copy-constructed from `name`, `theAddress` is copy-constructed from `phones`. For most types, a single call to copy constructor is more efficient - sometimes _much_ more efficient - than  a call to the default contructor followed by a call to the copy assignment operator.
-if ```ABEntry``` had a constructor taking no parameters, it could be implemented like this:
+
+If `ABEntry` had a constructor taking no parameters, it could be implemented like this:
 ```C++
 ABEntry::ABEntry( ) : theName(),                // call theName’s default ctor;
                       theAddress(),             // do the same for theAddress;
