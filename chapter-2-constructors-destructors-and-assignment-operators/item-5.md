@@ -74,6 +74,8 @@ Alternatively, should the string object to which `p.nameValue` refers be modifie
 
 Because of this, C++ refuses to compile the code. If you want to support copy assignment in a class containing a reference member, you must define the copy assignment operator yourself. Compilers behave similarly for classes containing `const` members (such as `objectValue` in the modified class above). It's not legal to modify `const` members, so compilers are unsure how to treat them during an implicitly generated assignment function. Finally, compilers reject implicit copy assignment operators in derived classes that inherit from base classes declaring the copy assignment operator private. After all, compiler-generated copy assignment operators for derived classes are supposed to handle base class parts, too, but in doing so, they certainly can't invoke member functions the derived class has no right to call.
 
+**Things to Remember:**
+* Compilers may implicitly generate a class's default constructor, copy constructor, copy assignment operator, and destructor.
 
 
 
