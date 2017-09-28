@@ -53,7 +53,9 @@ private:
 ```
 If an `int` occupies 32 bits, a `Point` object can typically fit into a 64-bit register. If `Point`'s destructor is made virtual, however, the situation changes.
 
-The implementation of virtual functions requires that objects carry information that can be used at runtime to determine which virtual functions shoul dbe invoked on the object. This information typically takes thr form of a pointer called a `vptr` ("virtual table pointer")
+The implementation of virtual functions requires that objects carry information that can be used at runtime to determine which virtual functions shoul dbe invoked on the object. This information typically takes thr form of a pointer called a `vptr` ("virtual table pointer"). The `vptr` points to an array of function pointers called a `vtbl` ("virtual table"); each class with virtual functions has an associated `vtbl`. When a virtual function is invoked on an object, the actual function called is determined by following the object's `vptr` to a `vtbl` and then looking up the approporiate function pointer in the `vtbl`.
+
+If the `Point` class contains a virtual function, object of that type will increase in size. On a32-bit architecure, they'll go from 64 bits (for the 2 `int`s) to 96 bits (for the `int`s plus the `vptr`); on a 64-bit architecture, they may go from 64 to 128 bits, because pointers on such architectures are 64 bits in size.
 
 
 
