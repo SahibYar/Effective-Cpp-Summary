@@ -1,4 +1,4 @@
-### Item 3: Use `const` whenever possible
+### Item 3 - Use `const` whenever possible
 The `const` keyword is remarkably versatile. Outside of classes, it is use for constants at global or namesapces scope, as well as for objects declared `static` at file, function or block scope. Inside classes, you can use it for both static and non-static data members. For pointers, you can specify whether the pointer itself is `const`, the data it points to is `const`, both or neither:
 ```C++
 char greeting[]="Hello";
