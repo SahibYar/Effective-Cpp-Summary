@@ -83,12 +83,31 @@ In `ABEntry`, for example, `theName` will always be initialized first, `theAddre
 
 Now, there is one more thing to be remembered, and that is,
 
-##### The order of initialization of non-local static objects defined in different translation units. {#the-order-of-initialization-of-non-local-static-objects-defined-in-different-translation-units}
+#### The order of initialization of non-local static objects defined in different translation units. {#the-order-of-initialization-of-non-local-static-objects-defined-in-different-translation-units}
 
 Let's pick that phrase apart it by bit.
 
-A _**static object**_ is one that exists from the time it's constructed until the end of the program. Stack and heap-based objects are thus excluded. Included are global objects, objects defined at namespace scope, objects declared static inside classes, objects declared static inside functions, and object declared static at file scope. Static objects inside functions are knows as _local static objects_ (because they're local to a function), and the other kinds of static objects are known as _non-local static objects._ Static objects are destroyed when program exits, i.e. their destructors are called when main finishes executing.
+A _**static object**_ is one that exists from the time it's constructed until the end of the program. Stack and heap-based objects are thus excluded. Included are global objects, objects defined at namespace scope, objects declared static inside classes, objects declared static inside functions, and object declared static at file scope. Static objects inside functions are knows as _local static objects_ \(because they're local to a function\), and the other kinds of static objects are known as _non-local static objects._ Static objects are destroyed when program exits, i.e. their destructors are called when main finishes executing.
 
 A _**translation unit**_ is the source code giving rise to a single object file.It's basically a single source file, plus all of its `#include` files.
+
+The problem we're concerned with, then, involves at least 2 separately compiled source files, each of which contains at least one non-local static object. And the actual problem is this: if initialization of a non-local static object in one translation unit uses a non-local static object in a different translation unit, the object it uses could be uninitialized, because _**the relative order of initialization of non-local static object defined in different translation units is undefined.**_
+
+##### Example:
+
+Suppose you have a `FileSystem` class that makes files on the Internet look like they're local. Since your class makes the world look like a single file system, you might create a special object at global or namespace scope representing the single file system:
+
+```C++
+class FileSystem {                // from your library's header file
+public:
+  ...
+  std::size_t numDisk() const:    // one of many member functions
+  ...
+};
+
+extern FileSystem tfs;            // declare object for clients to use("tfs"="the file system");
+                                  // definition is in some.cpp in your library
+```
+
 
 
