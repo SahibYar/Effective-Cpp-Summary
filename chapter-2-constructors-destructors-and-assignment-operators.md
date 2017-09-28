@@ -7,18 +7,18 @@ it’s initialized, getting rid of an object and making sure it’s properly cle
 In this chapter, I offer guidance on putting together the functions that
 comprise the backbone of well-formed classes. 
 
-[**Item 5:** ](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-5.html) **Know what functions C++ silently writes a calls.**
+[**Item 5:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-5.html) **Know what functions C++ silently writes a calls.**
 
-[**Item 6:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-2.html) **Explicitly disallow the use of compiler-generated functions you do not want.**
+[**Item 6:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-6.html) **Explicitly disallow the use of compiler-generated functions you do not want.**
 
-[**Item 7:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-3.html) **Prevent exceptions from leaving destructors.**
+[**Item 7:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-7.html) **Prevent exceptions from leaving destructors.**
 
-[**Item 8:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) **Prevent exceptions from leaving destructors.**
+[**Item 8:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-8.html) **Prevent exceptions from leaving destructors.**
 
-[**Item 9:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) **Never call virtual functions during construction or destruction.**
+[**Item 9:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-9.html) **Never call virtual functions during construction or destruction.**
 
-[**Item 10:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) <b>Have assignment operators return a reference to `*this`.</b>
+[**Item 10:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-10.html) <b>Have assignment operators return a reference to `*this`.</b>
 
-[**Item 11:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) <b>Handle assignment to self in `operator=`.</b>
+[**Item 11:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-11.html) <b>Handle assignment to self in `operator=`.</b>
 
-[**Item 12:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) **Copy all parts of an object.**
+[**Item 12:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-12.html) **Copy all parts of an object.**
