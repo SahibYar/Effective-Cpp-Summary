@@ -21,3 +21,6 @@ Empty e2(e1);                // copy constructor
 e2=e1;                       // copy assignment operator
 ```
 **Note:** The generated destructor is non-virtual unless it's for a class inheriting from a base class that itself declares a virtual destructor (in which case the function's virtualness comes from the base class).
+
+As for the copy constructor and copy assignment operator, the compiler -generated versions simply copy each non-static data member of the source object over to the target object.
+#####Example:
