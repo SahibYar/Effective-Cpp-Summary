@@ -57,7 +57,24 @@ The implementation of virtual functions requires that objects carry information 
 
 If the `Point` class contains a virtual function, object of that type will increase in size. On a32-bit architecure, they'll go from 64 bits (for the 2 `int`s) to 96 bits (for the `int`s plus the `vptr`); on a 64-bit architecture, they may go from 64 to 128 bits, because pointers on such architectures are 64 bits in size.
 
-
+It is possible to get bitten by the non-virtual destructor problem even in the complete absence of virtual functions.
+#####For Example:
+The standard `string` type contains no virtual functions, but misguided programmers sometimes use it as a base class anyway:
+```C++
+class SpecialString: public std::string {    // bad idea! std::string has a non-virtual destructor
+};
+```
+Anywhere in an application you somehow convert a pointer-to-SpecialString into a pointer-to-string and you then use `delete` on the `string` pointer, you are instantly transported to the realm of undefined behavior:
+```C++
+SpecialString* pss = new SpecialString("Impending Doom");
+std::string* ps;
+...
+ps = pss;                        // SpecialString* --> std::string*
+...
+delete ps;                       // undefined! In practice, *ps SpecialString resources will be 
+                                 // leaked, becayse the SpecialString destructor won't be called.
+```
+The same analysis applies to any class lacking a virtual destructor, including all the STL container types (e.g., `vector`, `list`, `set`, `unordered_map`, etc.).
 
 
 
