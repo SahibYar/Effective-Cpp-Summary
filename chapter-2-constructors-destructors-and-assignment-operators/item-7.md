@@ -38,7 +38,22 @@ public:
     ...
 };
 ```
-Base classes generally contain virtual functions other than the destructor, because the purpose of virtual functions is to allow customixation of derived class implementations. Any class with virtual functions should almost certainly have a virtual destructor.
+Base classes generally contain virtual functions other than the destructor, because the purpose of virtual functions is to allow customixation of derived class implementations. 
+> Declare a virtual destructor in a class if and only if that class contains at least one virtual function.
+
+If a class does not contain virtual functions, that often indicates it is not meant to be used as a base class. When a class is not intended to be a base class, making the destructor virtual is usually a bad idea. Consider a class for representing points in two-dimensional space:
+```C++
+class Point {            // a 2D point
+public:
+    Point(int xCoord, int yCoord);
+    ~Point();
+private:
+    int x,y;
+};
+```
+If an `int` occupies 32 bits, a `Point` object can typically fit into a 64-bit register. If `Point`'s destructor is made virtual, however, the situation changes.
+
+The implementation of virtual functions requires that objects carry information that can be used at runtime to determine which virtual functions shoul dbe invoked on the object. This information typically takes thr form of a pointer called a `vptr` ("virtual table pointer")
 
 
 
