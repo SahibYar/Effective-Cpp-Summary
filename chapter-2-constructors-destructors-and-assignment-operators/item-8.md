@@ -110,5 +110,7 @@ If an operation may fail by throwing an exception and there may be a need to han
 
 That's because destructors that emit exceptions are dangerous, always running the risk of premature program termination or undefined behavior. In this example, telling clients to call `close` themselves doesn’t impose a burden on them; it gives them an opportunity to deal with errors they would otherwise have no chance to react to. If they don’t find that opportunity useful (perhaps because they believe that no error will really occur), they can ignore it, relying on `DBConn`’s destructor to call `close` for them. If an error occurs at that point — if `close` does throw — they’re in no position to complain if `DBConn` swallows the exception or terminates the program.
 
-
+**Things to Remember:**
+* Destructors should never emit exceptions. If functions called in a destructor may throw, the destructor should catch any exceptions, then swallow them or terminate the program.
+* If class clients need to be able to react to exceptions thrown during an operation, the clss should provide a regular (i.e., non-destructor) function that performs the operation.
 
