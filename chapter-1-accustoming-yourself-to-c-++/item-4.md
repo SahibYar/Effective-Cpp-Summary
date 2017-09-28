@@ -164,3 +164,8 @@ Directory& tempDir()                          //  this replaces the tempDir obje
 The reference-returning functions dictated by this scheme are always simple: define and initialize a local static object on line 1, return it on line 2. On the other hand, the fact that these functions contain static objects makes them problematic in multithreaded systems. Then again, any kind of non-const static object — local or non-local — is trouble waiting to happen in the presence of multiple threads. One way to deal with such trouble is to manually invoke all the reference-returning functions during the single-threaded startup portion of the program. This eliminates initialization-related race conditions.
 
 To avoid using objects before they're initialized, then, you need to do only three things. First, manually initialize non-member objects of built-in types. Second, use member initialization lists to initialize all parts of an object. Finally, design around the initialization order uncertainty that afflicts non-local static objects defined in separate translation units.
+
+**Things to Remember:**
+* Manually initialize objects of builtin types, because C++ only sometimes initializes them itself.
+* In a constructor, prefer use of the member initialization list to assignment inside the body of the constructor. List data members in the initialization list in the same order they're declared in the class.
+* Avoid initialization order problems across translation units by replacing non-local static objects with local static objects.
