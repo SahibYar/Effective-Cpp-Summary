@@ -7,7 +7,7 @@ it’s initialized, getting rid of an object and making sure it’s properly cle
 In this chapter, I offer guidance on putting together the functions that
 comprise the backbone of well-formed classes. 
 
-[**Item 5:** ](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-1.html) **Know what functions C++ silently writes a calls.**
+[**Item 5:** ](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-5.html) **Know what functions C++ silently writes a calls.**
 
 [**Item 6:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-2.html) **Explicitly disallow the use of compiler-generated functions you do not want.**
 
