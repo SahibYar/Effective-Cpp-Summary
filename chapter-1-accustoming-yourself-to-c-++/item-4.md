@@ -108,6 +108,24 @@ public:
 extern FileSystem tfs;            // declare object for clients to use("tfs"="the file system");
                                   // definition is in some.cpp in your library
 ```
+Now suppose some client creates a class for directories in a file system. Naturally, their class uses the `tfs` object:
+```C++
+class Directory {                  // created by library client
+public:
+  Directory (params);
+  ...
+};
 
+Directory::Directory(params)
+{
+  ...
+  std::size_t disks = tfs.numDisks();                    // use the tfs object
+  ...
+}
+```
 
-
+Further suppose this client decides to create a single `Directory` object for temporary files:
+```C++
+Directory tempDir(params);          // directory for temporary files
+```
+Now the imporatance of initialization order becomes apparent: unless `tfs` is initialized before `tempDir`, `tempDir`'s constructor will attempt to use `tfs` before it's been initialized. But `tfs` and `tempDir` were created by different people at different times in different source files — they're non-local static objects defined in different translation units. How can you be sure that `tfs` will be initialized before `tempDir` ?
