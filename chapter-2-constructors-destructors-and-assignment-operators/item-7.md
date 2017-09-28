@@ -76,6 +76,9 @@ delete ps;                       // undefined! In practice, *ps SpecialString re
 ```
 The same analysis applies to any class lacking a virtual destructor, including all the STL container types (e.g., `vector`, `list`, `set`, `unordered_map`, etc.).
 
+**Things to Remember:**
+* Polymorphic base classes should declare virtual destructors. If a class has any virtual functions, it should have a virtual destructor.
+* Classes not designed to be base classes or not designed to be used polymorphically should not declare virtual destructors.
 
 
 
