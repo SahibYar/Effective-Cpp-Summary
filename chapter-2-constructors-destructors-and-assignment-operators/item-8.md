@@ -14,7 +14,7 @@ void doSomething()
 When the `vector` `v` is destroyed, it is responsible for destroying all the `Widget` objects it contain. Suppose `v` has ten `Widget` objects in it, and during destruction of the first one, an exception is thrown. The other nine objects still have to be destroyed (otherwise any resources they hold would be leaked), so `v` should invoke their destructors. But suppose that during those calls, a second `Widget` object's destructor throws an exception. Now there are two simulataneously active exceptions, and that's too many for C++. Depending in the precise conditions under which such pairs of simultaneously active exceptions arise, program execution either terminates or yields undefined behaviour. In this example it yields undefined behaviour.
 > C++ does not like destructors that emit exceptions!
 
-#####For Example:
+##### For Example:
 Suppose, working with a class for database connections:
 ```C++
 class DBConnection {
