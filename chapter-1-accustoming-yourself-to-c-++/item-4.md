@@ -108,9 +108,11 @@ public:
 extern FileSystem tfs;            // declare object for clients to use("tfs"="the file system");
                                   // definition is in some.cpp in your library
 ```
+
 Now suppose some client creates a class for directories in a file system. Naturally, their class uses the `tfs` object:
+
 ```C++
-class Directory {                  // created by library client
+class Directory {                      // created by library client
 public:
   Directory (params);
   ...
@@ -119,13 +121,45 @@ public:
 Directory::Directory(params)
 {
   ...
-  std::size_t disks = tfs.numDisks();                    // use the tfs object
+  std::size_t disks = tfs.numDisks();  // use the tfs object
   ...
 }
 ```
 
 Further suppose this client decides to create a single `Directory` object for temporary files:
+
 ```C++
 Directory tempDir(params);          // directory for temporary files
 ```
+
 Now the imporatance of initialization order becomes apparent: unless `tfs` is initialized before `tempDir`, `tempDir`'s constructor will attempt to use `tfs` before it's been initialized. But `tfs` and `tempDir` were created by different people at different times in different source files — they're non-local static objects defined in different translation units. How can you be sure that `tfs` will be initialized before `tempDir` ?
+
+Fortunately, a small design change eliminates the problem entirely. All that has to be done is to move each non-local static object into its own function, where it's declared **`static`** .These functions return references to the objects they contain. Clients then call the functions instead of referring to the objects. In other words, non-local static objects are replaced with _local_ static objects.
+
+This approach is founded on C++'s guarantee that local static objects are initialized when the object's definition is first encountered during a call to that function. So if you replace direct accesses to non-local static objects with calls to functions that return references to local static objects, you're guarenteed that the references you get back will refer to initialized objects.
+
+Here's the technique applied to both `tfs` and `tempDir`:
+
+```C++
+class FileSystem {...};                        //  as before
+FileSystem& tfs()                              //  this replaces the tfs object; it could be static in the FileSystem class
+{
+  static FileSystem fs;                        //  define and initize a local static object
+  return fs;                                   //  return reference to it.
+}
+
+class Directory {...};                        //  as before
+Directory::Directory(params)                  //  as before, except references to tfs are now to tfs()
+{
+  ...
+  std::size_t disks = tfs().numDisks();
+  ...
+}
+Directory& tempDir()                          //  this replaces the tempDir object; it could be static in the Directory class
+{
+  static Directory td(param);                 //  define/initialize local static object return reference to it.
+  return td;                                  //  return reference to it.
+}
+```
+
+
