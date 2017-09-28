@@ -1,4 +1,4 @@
-### Know what functions C++ silently writes and calls
+### Item 5 - Know what functions C++ silently writes and calls
 Empty class is not an empty class. If you don't declare them yourself, compilers will declare their own versions of a copy contructor, a copy assignment operator, and a destructor. Furthermore, if you declare no constructors at all, compilers will also declare a default constructor for you. All these functions will be both public and inline. As a result if you write
 ```C++
 class Empty{};
