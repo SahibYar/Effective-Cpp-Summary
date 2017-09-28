@@ -75,10 +75,20 @@ ABEntry::ABEntry( ) : theName(),                // call theName’s default ctor
 
 For objects of built-in type like `numTimesConsulted`, there is no difference in cost between initialization and assignment, but for consistency, it's often best to initialize everything via member initialization.
 
+One aspect of C++ that isn't fickle is the order in which an object's data is initialized.
 
+> Base classes are initialized before derived classes \([Item 12](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-12.html)\), and within class, data members are initialized in the order in which they are declared.
 
+In `ABEntry`, for example, `theName` will always be initialized first, `theAddress` second, `thePhones` third and `numTimesConsulted` last. This is true even if they are listed in a different order on the member initialization list.
 
+Now, there is one more thing to be remembered, and that is,
 
+##### The order of initialization of non-local static objects defined in different translation units. {#the-order-of-initialization-of-non-local-static-objects-defined-in-different-translation-units}
 
+Let's pick that phrase apart it by bit.
+
+A _**static object**_ is one that exists from the time it's constructed until the end of the program. Stack and heap-based objects are thus excluded. Included are global objects, objects defined at namespace scope, objects declared static inside classes, objects declared static inside functions, and object declared static at file scope. Static objects inside functions are knows as _local static objects_ (because they're local to a function), and the other kinds of static objects are known as _non-local static objects._ Static objects are destroyed when program exits, i.e. their destructors are called when main finishes executing.
+
+A _**translation unit**_ is the source code giving rise to a single object file.It's basically a single source file, plus all of its `#include` files.
 
 
