@@ -46,8 +46,8 @@ class HomeForSale : private Uncopyable {    // class no longer declares copy cto
 This works, because compilers will try to generate a copy constructor and a copy assignment operator if anybody — even a member or friend function — tries to copy a `HomeForSale` object. The compiler-generated versions of these functions will try to call their base class counterparts, and those calls will be rejected, because the copying operations are private in base class.
 The implementation and use of `Uncopyable` include some subtleties, such as the fact that inheritance from `Uncopyable` needn't be public and that `Uncopyable`'s destructor need not be virtual. You can also use the version available at `Boost`. That class is named `noncopyable`.It's a fine class.
 
-
-
+**Things to Remember:**
+* To disallow functionality automatically provided by compilers, declare the corresponding member functions `private` and give no implementations. Using a base class like `Uncopyable` is one way to do this.
 
 
 
