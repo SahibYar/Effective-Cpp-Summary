@@ -7,4 +7,9 @@ public:
     virtual void logTransaction() const = 0;    // make type-dependent log entry
     ...
 };
+Transaction::Transaction()                    // implementation of base class ctor
+{
+    ...
+    logTransaction();                        // as final action, log this transaction
+}
 ```
