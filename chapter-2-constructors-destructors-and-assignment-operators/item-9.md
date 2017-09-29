@@ -38,6 +38,47 @@ In our example, while the `Transaction` constructor is running to initialize the
 
 They same reasoning applies during destruction. Once a derived class destructor has run, the object's derived class data members assume undefined values, so C++ treats them as if they no longer exist. Upon entry to the base class destructor, the object becomes a base class object, and all parts of C++ — virtual functions, `dynamic_cast`, etc., — treat it that way.
 
+It's not always so easy to detect calls to virtual functions during construction or destruction. if `Transaction` had multiple constructors, each of which had to perform some of the same work, it would be good software engineering to avoid code replication by putting the common initialization code, including the call to `logTransaction`, into a private non-virtual initialization function, say, `init`:
+```C++
+class Transaction {
+public:
+    Transaction()
+    { init(); }                                // call to non-virtual
+    virtual void logTransaction() const = 0;
+    ...
+private:
+    void init()
+    {
+         ...
+         logTransaction();                    // that calls a virtual!
+     }
+ };
+```
+This code is conceptually the same as the earlier version, but it's more insidious, because it will typically compile and link without complaint. In this case, because `logTransaction` is pure virtual in `Transacction`, most runtime systems will abort the program when the pure virtual is called. However, if `logTransaction` were a normal virtual function (i.e. not pure virtual) with an implementation in `Transaction`, that version would be called, and the program would merrily trot along, leaving you to figure out why the wrong version of `logTransaction` was called when a derived class object was created.
 
-
+#### Reasonable Solution:
+There are different ways to approach this problem. One is to turn `logTransaction` into a non-virtual function in `Transaction`, then require that derived class constructors pass the necessary log information to the `Transaction` constructor. That function can then safely call the non-virtual `logTransaction`. Like this:
+```C++
+class Transaction {
+public:
+    explicit Transaction( const std::string& logInfo);
+    void logTransaction( const std::string& logInfo) const;    // now a non-virtual function
+    ...
+};
+Transaction::Transaction( const std::string& logInfo)
+{
+    ...
+    logTransaction(logInfo)                                    // now a non-virtual call
+}
+class BuyTransaction: public Transaction {
+public:
+    BuyTransaction(parameters): 
+        Transaction( createLogString(parameters))             // passing log info to base class constructor
+    { ... }
+    ...
+private:
+    static std::string createLogString(parameters);
+};
+```
+In other words, since you can't use virtual functions to call down from base classes during construction, you can compensate by having derived classes pass necessary construction information up to base class constructors instead.
 
