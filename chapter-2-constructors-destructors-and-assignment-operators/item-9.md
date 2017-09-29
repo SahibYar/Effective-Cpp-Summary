@@ -82,3 +82,11 @@ private:
 ```
 In other words, since you can't use virtual functions to call down from base classes during construction, you can compensate by having derived classes pass necessary construction information up to base class constructors instead.
 
+In this example, note the use of the **_private static_** function **`createLogString`** in `BuyTransaction`. Using the helper function to create a value to pass to a base class constructor is often more convenient than going through contortions in the member initialization list ot give the base class what it needs.
+
+
+
+
+
+
+
