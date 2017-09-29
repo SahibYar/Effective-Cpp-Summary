@@ -41,7 +41,7 @@ Widget& Widget::operator= (const Widget& rhs)    // unsafe impl. of operator=
     return *this;
 }
 ```
-The self-assignment problem here is that inside `operator=`, `*this` (the target of the assignment) and `rhs` could be the same object. When they are, the `delete` not only destroys the bitmap for current object, it destroys the bitmap for `rhs`, too. At the end of the function, the `Widget` — which should not have been changed by the assignment to self — finds itself holding a pointer to a deleted object!<sup>1</sup>
+The self-assignment problem here is that inside `operator=`, `*this` (the target of the assignment) and `rhs` could be the same object. When they are, the `delete` not only destroys the bitmap for current object, it destroys the bitmap for `rhs`, too. At the end of the function, the `Widget` — which should not have been changed by the assignment to self — finds itself holding a pointer to a deleted object!<sup>[1](#myfootnote1)</sup>
 
 The traditional way to prevent this error is to check for assignment to self via an _identity test_ at the top of `operator=`:
 ```C++
@@ -58,7 +58,7 @@ Widget& Widget::operator= (const Widget& rhs)
 
 
 
-<sup>1</sup> Probably. C++ implementations are permitted to change the value of a deleted pointer (e.g., to null or some other sepcial bit pattern).
+<a name="myfootnote1">1</a> Probably. C++ implementations are permitted to change the value of a deleted pointer (e.g., to null or some other sepcial bit pattern).
 
 
 
