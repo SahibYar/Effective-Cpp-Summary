@@ -29,7 +29,7 @@ class Bitmap { ... };
 class Widget {
     ...
 private:
-    Bitmap *pd;                // ptr to a heap-allocated object
+    Bitmap *pb;                // ptr to a heap-allocated object
 };
 ```
 Here's an implementation of `operator=` that looks reasonable on the surface but is unsafe in the presence of assignment to self. (It's also not **_exception-safe_**, but we'll deal with that in a moment.)
@@ -55,10 +55,26 @@ Widget& Widget::operator= (const Widget& rhs)
     return *this;
 }
 ```
+This works, because it is self-assignment safe, but it is exception-unsafe. In particular, if the `new Bitmap` expression yields an exception (either because there is insufficient memory for allocation or because Bitmap's copy constructor throws one), the `Widget` will end up holding a pointer to a deleted Bitmap.<sup>[1](#myfootnote1)</sup>Such pointers are toxic. You can't safely delete them. You can't even safely read them.
 
+Happily, making `operator=` exception-safe typically renders it self-assignment-safe too. As a result, it's increasingly common to deal with issues of self-assignment by ignoring them, forcusing instead on achieving exception safety. Here, for example, we just have to be careful not to delete `pb` until after we've copied what it points to:
+```C++
+Widget& Widget::operator= (const Widget& rhs)
+{
+    Bitmap *pOrig = pb;            // remember orignal pb
+    pb = new Bitmap(*rhs.pb);      // point pb to a copy of rh's bitmap
+    delete pOrig;                  // delete the orignal pb
+    
+    return *this;
+}
+```
+Now, if "new Bitmap" throws an exception, `pb` (and the `Widget` it's inside of) remain unchanged. Even without the identity test, this code handles assignment to self, because we make a copy of the original bitmap.
 
+**Things to Remember**
+* Make sure `operator=` is well-behaved when an object is assigned to itself. Techniques include comparing addresses of source and target objects, careful statement ordering, and copy-and-swap.
+* Make sure that any function operating on more than one object behaves correctly if two or more of the objects are the same.
 
-<a name="myfootnote1">1</a> Probably. C++ implementations are permitted to change the value of a deleted pointer (e.g., to null or some other sepcial bit pattern).
+<a name="myfootnote1">1</a>: Probably. C++ implementations are permitted to change the value of a deleted pointer (e.g., to null or some other sepcial bit pattern).
 
 
 
