@@ -1,4 +1,4 @@
-## Chapter 2: Constructors, Destructors,and Assignment Operators
+## Chapter 2: Constructors, Destructors and Assignment Operators
 
 Almost every class you write will have one or more constructors, a destructor, and a copy assignment operator. Little wonder. These are
 your bread-and-butter functions, the ones that control the fundamental
