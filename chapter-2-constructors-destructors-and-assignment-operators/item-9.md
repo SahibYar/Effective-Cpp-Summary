@@ -36,7 +36,7 @@ Clearly a `BuyTransaction` constructor will be called, but first, a `Transaction
 In our example, while the `Transaction` constructor is running to initialize the base class part of a `BuyTransaction` object, the object is of type `Transaction`. That's how every parto of C++ will treat it, and the treatment makes sense: the `BuyTransaction` specific parts of the object haven't been initialized yet, so it's safest to treat them as if they didn't exist.
 > An object doesn't become a derived class object until execution of a derived class constructor begins.
 
-
+They same reasoning applies during destruction. Once a derived class destructor has run, the object's derived class data members assume undefined values, so C++ treats them as if they no longer exist. Upon entry to the base class destructor, the object becomes a base class object, and all parts of C++ — virtual functions, `dynamic_cast`, etc., — treat it that way.
 
 
 
