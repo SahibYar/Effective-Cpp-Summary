@@ -84,7 +84,8 @@ In other words, since you can't use virtual functions to call down from base cla
 
 In this example, note the use of the **_private static_** function **`createLogString`** in `BuyTransaction`. Using the helper function to create a value to pass to a base class constructor is often more convenient than going through contortions in the member initialization list ot give the base class what it needs.
 
-
+**Things to Remember:**
+* Don't call virtual fucntions during construction or destruction, because such calls will never go to a more derived class than that of the currently executing constructor or destructor.
 
 
 
