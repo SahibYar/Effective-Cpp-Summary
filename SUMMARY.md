@@ -16,7 +16,7 @@
   * [Item 11](chapter-2-constructors-destructors-and-assignment-operators/item-11.md)
   * [Item 12](chapter-2-constructors-destructors-and-assignment-operators/item-12.md)
 * [Chapter 3 - Resource Management](chapter-3-resource-management.md)
-  * Item 13
+  * [Item 13](chapter-3-resource-management/item-13.md)
   * Item 14
   * Item 15
   * Item 16
