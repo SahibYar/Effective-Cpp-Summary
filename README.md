@@ -1,14 +1,14 @@
-# [Effective C++](https://www.amazon.com/Effective-Specific-Improve-Programs-Designs/dp/0321334876) by [Scott Meyers](https://en.wikipedia.org/wiki/Scott_Meyers) \(Short Summary\) {#effective-c-by-scott-meyers-short-summary}
+# [Effective C++](https://www.amazon.com/Effective-Specific-Improve-Programs-Designs/dp/0321334876) by [Scott Meyers](https://en.wikipedia.org/wiki/Scott_Meyers) \(Short Summary\)
 
 ---
-
+## Who should read this book ?
 Effective C++ is one of the best book for improving C++ programs and designs by using C++ best practices. And this book is recommended to every one pursuing career as a C++ developer, So I am writing down this short summary for my own personal use to have a short and to the point summary of the book for future use.
 
-## Terminologies used in this book. {#terminologies-used-in-this-book}
+## Terminologies used in this book.
 
 ---
 
-#### Declaration {#declaration}
+#### Declaration
 
 A _Declaration_ tells compiler about the name and type of something, but it omits certain details. For Example:
 
@@ -19,11 +19,11 @@ class Widget;                            // class declaration
 template<typename T> class GraphNode;    // template delaration
 ```
 
-#### Signature {#signature}
+#### Signature
 
 Each function's declaration reveals its _signature_ i.e. its parameter and return types. A function's signature is the same as its types. In the case of `numDigits`, the signature is `size_t(int)`, i.e. "Function taking an `int` and returning `std::size_t`."
 
-#### Definition {#definition}
+#### Definition
 
 A _definition_ provides compilers with details a declaration omits. For an object, the definition is where compilers set aside memory for the object. For a function or a function template, the definition provides the code body. For a class or a class template, the definition lists the members of the class or template:
 
@@ -56,11 +56,11 @@ public:
 };
 ```
 
-#### Initialization {#initialization}
+#### Initialization
 
 _Initialization_ is the process of giving an object its first value. For objects generated from structs and classes, initialization is performed by constructors.
 
-#### Default Constructors {#default-constructor}
+#### Default Constructors
 
 A _Default Constructor_ is one the can be called without any arguments. Such a constructor has no parameters or has a default value for every parameter:
 
@@ -107,7 +107,3 @@ Fortunately, copy constructor is easy to distinguish from copy assignment. If a 
 
 ### Standard Template Library (STL)
 <i>STL</i> is the part of C++'s standard library devoted to [containers](http://en.cppreference.com/w/cpp/container) (e.g., [vector](http://en.cppreference.com/w/cpp/container/vector), [list](http://en.cppreference.com/w/cpp/container/list), [set](http://en.cppreference.com/w/cpp/container/set), [map](http://en.cppreference.com/w/cpp/container/map), etc), [iterators](http://en.cppreference.com/w/cpp/iterator) (e.g., ```vector<int>::iterator```, ```set<string>::iterator```, etc.), [algorithms](http://en.cppreference.com/w/cpp/algorithm) (e.g. ```for_each```, ```find```,```sort``` etc.), and related functionality.
-
-
-
-
