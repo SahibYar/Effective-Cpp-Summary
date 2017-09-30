@@ -80,6 +80,7 @@ PriorityCustomer& PriorityCustomer::operator=(const PriorityCustomer& rhs)
    priority = rhs.priority;
    return *this;
 }
+```
 The meaning of "copy all parts" in this Item's title should now be clear. When you're writing a copy function, be sure to
 * copy all local data members and
 * invoke the appropriate copying function in all base classes, too.
@@ -89,7 +90,6 @@ The meaning of "copy all parts" in this Item's title should now be clear. When y
 **Things to Remember**
 * Copying functions should be sure to copy all of an object's data members and all of its base class parts.
 * Don't try to implement one of the copying functions in terms of the other. Instead, put common functionality in a third function that both call.
-```
 
 
 
