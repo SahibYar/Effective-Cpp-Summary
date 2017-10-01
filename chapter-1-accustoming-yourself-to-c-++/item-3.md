@@ -33,7 +33,9 @@ One of the most powerful uses of `const` is its application to _function declara
 * `const` can refer to the function return type,
 * to individual parameters,
 * and, for member functions, to the function as a whole.
+
 ===
+
 Having a a function return a constant value is generally inappropriate, but sometimes doing so can reduce the incidence of client errors with out giving up safety or efficiency. 
 **Example:**
 Consider the declaration of the operator* function for rational numbers:
