@@ -110,8 +110,11 @@ ctb[0] = 'x';          //  error - writing a const TextBlock
 ```C++
 tab[0] = 'x';
 ```
+
 That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behavior we want.
+
 ---
+
 **What does it mean for member function to be a `const`?** There two prevailing notions: _bitwise constness_ (also know as _physical constness_) and _logical constness_.
 
 The bitwise `const` camp believes that a member function is `const` if and only if it doesn’t modify any of the object’s data members (excluding those that are static), i.e., if it doesn’t modify any of the bits inside the object. The nice thing about bitwise constness is that it’s easy to detect violations: compilers just look for assignments to data members. In fact, bitwise constness is C++’s definition of constness, and a const member function isn’t allowed to modify any of the non-static data members of the object on which it is invoked.
