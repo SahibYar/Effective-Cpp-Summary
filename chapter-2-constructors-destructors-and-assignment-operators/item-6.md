@@ -1,5 +1,5 @@
 ### Item 6 - Explicitly disallow the use of compiler-generated functions you do not want.
-Real estate agents sell houses, and a software system supporting such agents would naturally have a class representing hoomes for sales:
+Real estate agents sell houses, and a software system supporting such agents would naturally have a class representing homes for sales:
 ```C++
 class HomeForSale{...};
 ```
@@ -10,7 +10,7 @@ HomeForSale h2;
 HomeForSale h3(h1);            // attempt to copy h1 — should not compile!
 h1 = h2;                       // attempt to copy h2 — should not compile!
 ```
-Usually, if you don't want a class to support a particular kind of functionality, you simply don't declare the function that would provide it. This strategy doesn't work for the copy constructor and copy assignment operator, because, we know, if you don't declare them and somebody tries to call them, compilers dclare them for you.
+Usually, if you don't want a class to support a particular kind of functionality, you simply don't declare the function that would provide it. This strategy doesn't work for the copy constructor and copy assignment operator, because, we know, if you don't declare them and somebody tries to call them, compilers declare them for you.
 
 The key to the solution is that all the compiler generated functions are public. To prevent these functions, from being generated, you must declare them yourself _privately_. By declaring a member function explicitly, you prevent compilers from generating their own version, and by making the function `private`, you keep people from calling it.
 

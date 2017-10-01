@@ -1,5 +1,5 @@
 ### Item 3 - Use `const` whenever possible
-The `const` keyword is remarkably versatile. Outside of classes, it is use for constants at global or namesapces scope, as well as for objects declared `static` at file, function or block scope. Inside classes, you can use it for both static and non-static data members. For pointers, you can specify whether the pointer itself is `const`, the data it points to is `const`, both or neither:
+The `const` keyword is remarkably versatile. Outside of classes, it is use for constants at global or namespaces scope, as well as for objects declared `static` at file, function or block scope. Inside classes, you can use it for both static and non-static data members. For pointers, you can specify whether the pointer itself is `const`, the data it points to is `const`, both or neither:
 ```C++
 char greeting[]="Hello";
 char *p = greeting;             //  non-const pointer, non-const data
@@ -11,9 +11,9 @@ If the word `const` appears to the left of the asterisk, what's pointed to is co
 If the word `const` appears to the right of the asterisk, the pointer _itself_ is constant.
 if `const` appears on both sides, both are constant.
 
-When what's pointed to is constant, some programmers list `const` before the type. Others list it after the type. Others list it after the type but before the asterisk. There is no difference in meanining, so the following functions take the same parameter type:
+When what's pointed to is constant, some programmers list `const` before the type. Others list it after the type. Others list it after the type but before the asterisk. There is no difference in meaning, so the following functions take the same parameter type:
 ```C++
-void f1(const Widget *pw);      //  f1 takes apointer to constant Widget object
+void f1(const Widget *pw);      //  f1 takes a pointer to constant Widget object
 void f2(Widget const *pw);      //  so does f2
 ```
 * In **STL** `iterator` acts much like a `T*` pointer. Declaring an `iterator` `const` is like declaring a pointer `const` (i.e. declaring a `T *const` pointer). The STL analogue to a `const T*` pointer is <b>`const_pointer`</b>
@@ -57,7 +57,7 @@ private:
 ```C++
 tab[0] = 'x';
 ```
-That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behaviour we want.
+That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behavior we want.
 `TextBlock` `operator[]` can be used like this:
 ```C++
 TextBlock tb("Hello");

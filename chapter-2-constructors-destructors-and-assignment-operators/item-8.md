@@ -11,7 +11,7 @@ void doSomething()
     std::vector<Widget> v;
 }                                // v is automatically destroyed here.
 ```
-When the `vector` `v` is destroyed, it is responsible for destroying all the `Widget` objects it contain. Suppose `v` has ten `Widget` objects in it, and during destruction of the first one, an exception is thrown. The other nine objects still have to be destroyed (otherwise any resources they hold would be leaked), so `v` should invoke their destructors. But suppose that during those calls, a second `Widget` object's destructor throws an exception. Now there are two simulataneously active exceptions, and that's too many for C++. Depending in the precise conditions under which such pairs of simultaneously active exceptions arise, program execution either terminates or yields undefined behaviour. In this example it yields undefined behaviour.
+When the `vector` `v` is destroyed, it is responsible for destroying all the `Widget` objects it contain. Suppose `v` has ten `Widget` objects in it, and during destruction of the first one, an exception is thrown. The other nine objects still have to be destroyed (otherwise any resources they hold would be leaked), so `v` should invoke their destructors. But suppose that during those calls, a second `Widget` object's destructor throws an exception. Now there are two simultaneously active exceptions, and that's too many for C++. Depending in the precise conditions under which such pairs of simultaneously active exceptions arise, program execution either terminates or yields undefined behavior. In this example it yields undefined behavior.
 > C++ does not like destructors that emit exceptions!
 
 #### For Example:
@@ -59,7 +59,7 @@ DBConn::~DBConn()
     }
 }
 ```
-This is reasonable option if the program cannot continue to run after an error is encountered during destruction. It has the advantage that if allowing the exception to propagate from the destructor would lead to undefined behaviour, this prevents that from happening. That is, calling `abort` may forestall undefined behaviour.
+This is reasonable option if the program cannot continue to run after an error is encountered during destruction. It has the advantage that if allowing the exception to propagate from the destructor would lead to undefined behavior, this prevents that from happening. That is, calling `abort` may forestall undefined behavior.
 * **Swallow the exception** arising from the call to `close`:
 ```C++
 DBConn::~DBConn()
@@ -70,7 +70,7 @@ DBConn::~DBConn()
     }
 }
 ```
-In general, swallowing exception is a bad idea, because it supresses important information — _something failed!_ Sometimes, however, swallowing exceptions is preferable to running the risk of premature program termination or undefined behavior. For this to be a viable option, the program must be able to reliably continue execution even after an error has been encountered and ignored.
+In general, swallowing exception is a bad idea, because it suppresses important information — _something failed!_ Sometimes, however, swallowing exceptions is preferable to running the risk of premature program termination or undefined behavior. For this to be a viable option, the program must be able to reliably continue execution even after an error has been encountered and ignored.
 
 A better strategy is to design `DBConn`’s interface so that its clients have an opportunity to react to problems that may arise. 
 #### For example:
@@ -112,5 +112,5 @@ That's because destructors that emit exceptions are dangerous, always running th
 
 **Things to Remember:**
 * Destructors should never emit exceptions. If functions called in a destructor may throw, the destructor should catch any exceptions, then swallow them or terminate the program.
-* If class clients need to be able to react to exceptions thrown during an operation, the clss should provide a regular (i.e., non-destructor) function that performs the operation.
+* If class clients need to be able to react to exceptions thrown during an operation, the class should provide a regular (i.e., non-destructor) function that performs the operation.
 
