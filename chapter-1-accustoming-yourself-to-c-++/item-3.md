@@ -36,8 +36,10 @@ One of the most powerful uses of `const` is its application to _function declara
 
 ---
 
-Having a a function return a constant value is generally inappropriate, but sometimes doing so can reduce the incidence of client errors with out giving up safety or efficiency. 
+Having a a function return a constant value is generally inappropriate, but sometimes doing so can reduce the incidence of client errors with out giving up safety or efficiency.
+
 **Example:**
+
 Consider the declaration of the operator* function for rational numbers:
 ```C++
 class Ration { ... };
@@ -56,7 +58,12 @@ if (a * b = c) ...    // oops, meant to do a comparison!
 Such code would be flat-out illegal if `a` and `b` were of a built-in type. Declaring `operator*` return value `const` prevents it, and that's why it's The Right Thing To Do in this case.
 
 #### `const` Member Functions
-The purpose of `const` on member functions is to identify which member functions may be invoked on `const` objects. One of the fundamental ways to improve a C++ program's performance is to pass objects by **reference-to-const**. That technique is viable only if there are `const` member functions with which to manipulate the resulting const-qualified objects.
+The purpose of `const` on member functions is to identify which member functions may be invoked on `const` objects. Such member functions are important for two reasons:
+1. They make the interface of a class easier to understand. It's important to know which functions may modify an object and which may not.
+2. They make it possible to work with `const` objects.
+
+One of the fundamental ways to improve a C++ program's performance is to pass objects by **reference-to-const**. That technique is viable only if there are `const` member functions with which to manipulate the resulting const-qualified objects.
+Many people overlook the fact that member functions differing _only_ in their constness can be overloaded, but this is an important feature of C++. Consider a class for representing a block of text:
 ```C++
 class TextBlock
 {
@@ -74,30 +81,42 @@ private:
   std::string text;
 };
 ```
-**Note:** The return *type* of the non-const `operator[]` is a *reference* to a `char` — a `char` itself would not do. if `operator[]` did return a simple `char`, statements like this wouldn't compile:
-```C++
-tab[0] = 'x';
-```
-That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behavior we want.
 `TextBlock` `operator[]` can be used like this:
 ```C++
 TextBlock tb("Hello");
 std::cout << tb[0];       //  call non-const TextBlock::operator[]
 
+const TextBlock ctb("World");
+std::cout << ctb[0];      // call const TextBlock::operator[]
+```
+Incidentally, `const` objects most often arise in real programs as a result of being passed by _reference_ or _reference-to-const_. The example of `ctb` above is artificial. This is more realistic:
+```C++
 void print(const TextBlock& ctb)  //  in this function, ctb is const
 {
   st::cout << ctb[0];    //  call const TextBlock::operator[]
 }
 ```
-By overloading `operator[]` and giving the different versions different return _types_, you can have `const` and `non-const` `TextBlock` handled differently.
+By overloading `operator[]` and giving the different versions different return types, you can have `const` and `non-const` `TextBlock` handled differently.
 ```C++
 std::cout << tb[0];    //  fine - reading a non-const TextBlock
 tb[0] = 'x';           //  fine - writing a non-const TextBlock
 std::cout << ctb[0];   //  fine - reading a const TextBlock
 ctb[0] = 'x';          //  error - writing a const TextBlock
 ```
-**Note:** The error here has only to do with the return _type_ of the `operator[]` that is called; the calls to `operator[]` themselves are all fine. The error arises out of an attempt to make an assignment to a `const char&`, because that's the return type from the `const` version of `operator[]`.
-#### Avoiding Duplication in `const` and non-`const` Member Functions
+**Note:** The error here has only to do with the return type of the `operator[]` that is called; the calls to `operator[]` themselves are all fine. The error arises out of an attempt to make an assignment to a `const char&`, because that's the return type from the `const` version of `operator[]`.
+
+
+**Note:** The return *type* of the non-const `operator[]` is a *reference* to a `char` — a `char` itself would not do. if `operator[]` did return a simple `char`, statements like this wouldn't compile:
+```C++
+tab[0] = 'x';
+```
+That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behavior we want.
+
+
+
+
+
+
 ```C++
 class TextBlock 
 {
