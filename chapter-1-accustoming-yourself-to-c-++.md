@@ -9,9 +9,8 @@ some of the most fundamental things of all.
 
 [**Item 1:** ](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-1.html) **View C++ as a federation of languages.**
 
-[**Item 2:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-2.html) <b>Prefer `consts`, `enums`, and `inlines` to `#defines`.</b>
+[**Item 2:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-2.html) <b>Prefer `const`, `enum`, and `inline` to `#define`.</b>
 
 [**Item 3:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-3.html) <b>Use `const` whenever possible.</b>
 
-[**Item 4:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) <b>Make sure that objects are initialized before
-they’re used.</b>
+[**Item 4:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-1-accustoming-yourself-to-c-++/item-4.html) <b>Make sure that objects are initialized before they’re used.</b>

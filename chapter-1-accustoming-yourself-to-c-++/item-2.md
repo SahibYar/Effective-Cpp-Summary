@@ -1,4 +1,4 @@
-### Item 2 - Prefer `const`, `enum`, and `inline` to `#defines`. {#item-2---prefer-const-enum-and-inline-to-defines}
+### Item 2 - Prefer `const`, `enum`, and `inline` to `#define`.
 
 For simple constants, prefer `const` objects or `enums` to `#defines`.
 
@@ -6,7 +6,7 @@ For simple constants, prefer `const` objects or `enums` to `#defines`.
 
 `const double AspectRatio = 1.653;`
 
-When replacing `#defines` with constants, 2 cases are worth mentionining.
+When replacing `#defines` with constants, 2 cases are worth mentioning.
 
 * The 1st one is constant pointers  
   `const char* const authorName="Scott Meyers";`  
@@ -23,10 +23,10 @@ private:
   ....
 };
 
-const double CostEstimate::FudgeFactor = 1.35;    // definition of static class constant; goes in implimentation file
+const double CostEstimate::FudgeFactor = 1.35;    // definition of static class constant; goes in implementation file
 ```
 
-This is all you need almost all the time, The only exception is when the value of a class constant is needed during compilation of the class, such as in the declaration of the array `GamePlayer::scrores` given below.
+This is all you need almost all the time, The only exception is when the value of a class constant is needed during compilation of the class, such as in the declaration of the array `GamePlayer::scores` given below.
 
 ```C++
 class GamePlayer
@@ -38,7 +38,7 @@ private:
 };
 ```
 
-Most old compiler do not accept above systax, Then accepted way to compensate for compilers that \(incorrectly\) forbid the in-class specification of initial values for static integral type \(e.g., `int`, `char`, `bool`\) class constants is to use what is affectionately known as **the enum hack**. This technique takes advantage of the fact that the values of an `enum` type can be used where `int` are expected. So `GamePlayer` could just as well be defined like this:
+Most old compiler do not accept above syntax, Then accepted way to compensate for compilers that \(incorrectly\) forbid the in-class specification of initial values for static integral type \(e.g., `int`, `char`, `bool`\) class constants is to use what is affectionately known as **the enum hack**. This technique takes advantage of the fact that the values of an `enum` type can be used where `int` are expected. So `GamePlayer` could just as well be defined like this:
 
 ```C++
 class GamePlayer
