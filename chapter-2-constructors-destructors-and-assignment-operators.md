@@ -11,7 +11,7 @@ comprise the backbone of well-formed classes.
 
 [**Item 6:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-6.html) **Explicitly disallow the use of compiler-generated functions you do not want.**
 
-[**Item 7:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-7.html) **Prevent exceptions from leaving destructors.**
+[**Item 7:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-7.html) **Declare destructors virtual in polymorphic base classes.**
 
 [**Item 8:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/chapter-2-constructors-destructors-and-assignment-operators/item-8.html) **Prevent exceptions from leaving destructors.**
 
