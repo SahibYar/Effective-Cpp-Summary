@@ -18,7 +18,7 @@
 * [Chapter 3 - Resource Management](chapter-3-resource-management.md)
   * [Item 13](chapter-3-resource-management/item-13.md)
   * [Item 14](chapter-3-resource-management/item-14.md)
-  * Item 15
+  * [Item 15](chapter-3-resource-management/item-15.md)
   * Item 16
   * Item 17
 
