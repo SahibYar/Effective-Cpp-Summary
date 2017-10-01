@@ -21,7 +21,7 @@
   * [Item 15 - Provide access to raw resources in resource-managing classes.](chapter-3-resource-management/item-15.md)
   * [Item 16 - Use the same form in corresponding uses of new and delete.](chapter-3-resource-management/item-16.md)
   * [Item 17 - Store newed objects in smart pointers in standalone statements.](chapter-3-resource-management/item-17.md)
-* Chapter 4 - Designs and Declarations
+* [Chapter 4 - Designs and Declarations](chapter-4-designs-and-declarations.md)
   * [Item 18](item-14.md)
   * Item 19
   * Item 20
