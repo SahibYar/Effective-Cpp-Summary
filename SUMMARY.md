@@ -21,4 +21,13 @@
   * [Item 15](chapter-3-resource-management/item-15.md)
   * [Item 16](chapter-3-resource-management/item-16.md)
   * [Item 17](chapter-3-resource-management/item-17.md)
+* Chapter 4 - Designs and Declarations
+  * [Item 18](item-14.md)
+  * Item 19
+  * Item 20
+  * Item 21
+  * Item 22
+  * Item 23
+  * Item 24
+  * Item 25
 
