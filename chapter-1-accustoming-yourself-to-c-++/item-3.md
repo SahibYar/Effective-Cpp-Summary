@@ -111,12 +111,84 @@ ctb[0] = 'x';          //  error - writing a const TextBlock
 tab[0] = 'x';
 ```
 That's because it's never legal to modify the return value of a function that returns a built-in type. Even if it were legal, the fact the C++ returns objects by value would mean the a *copy* of `tb.text[0]` would be modified, not `tb.text[0]` itself, and that's not the behavior we want.
+---
+**What does it mean for member function to be a `const`?** There two prevailing notions: _bitwise constness_ (also know as _physical constness_) and _logical constness_.
 
+The bitwise `const` camp believes that a member function is `const` if and only if it doesn’t modify any of the object’s data members (excluding those that are static), i.e., if it doesn’t modify any of the bits inside the object. The nice thing about bitwise constness is that it’s easy to detect violations: compilers just look for assignments to data members. In fact, bitwise constness is C++’s definition of constness, and a const member function isn’t allowed to modify any of the non-static data members of the object on which it is invoked.
+Unfortunately, many member functions, that don't act very `const` pass the bitwise test. In particular, a member function that modifies what a pointer _points_ to frequently doesn't act `const`. But if only the _pointer_ is in the object, the function is bitwise `const`, and compiler won't complain.
 
+**Example:**
 
+Suppose we have a `TextBlock` like class that stores its data as a `char*` instead of a `string`, because it needs to communicate through a C API that doesn't understand `string` objects.
+```C++
+class CTextBlock {
+public:
+  ...
+  // inappropriate (but bitwise const) declaration of operator[]
+  char& operator[] (std::size_t position) const
+  { return pText[position]; }
+private:
+  char* pText;
+};
+```
+This class (inappropriately) declares `operator[]` as a `const` member function, even though that function returns a reference of the object's internal data. And note that `operator[]`s implementation doesn't modify `pText` in any way. As a result, compilers will happily generate code for `operator[]`; it is, after all, bitwise `const`, and that's all compilers check for. But look what it allowd to happen:
+```C++
+const CTextBlock cctb("Hello");      // declare constant object
+char* pc = &cctb[0];                 // call the const operator[] to get a pointer to cctb's data
+*pc = 'J';                           // cctb now has the value "Jello"
+```
+Surely there is something wrong when you create a constant object with a particular value and you invoke only `const` member functions on it, yet you still change its value!
+This leads to notion of logical constness. Adherents to this philosophy — and you should be among them — argue that a `const` member function might modify some of the bits in the object on which it's invoked, but only in ways that clients cannot detect.
 
+**Example:**
+Your `CTextBlock` class might want to cache the length of the textblock whenever it's requested:
+```C++
+class CTextBlock {
+public:
+  ...
+  std::size_t length() const;
+private:
+  char* pText;
+  std::size_t textLength;        // last calculated length of textblock
+  bool lengthIsValid;            // whether length is currently valid
+};
 
+std::size_t CTextBlock::length() const
+{
+  if (!lengthIsValid) {
+    // error! can't assign to textLength and lengthisValid in a const member function.
+    textLength = std::strlen(pText);
+    lengthIsValid = true;
+  }
+  return textLength;
+}
+```
+This implementation of `length` is certainly not bitwise `const` — both `textLength` and `lengthIsValid` may be modified — yet it seems as though it should be valid for `const CTextBlock` objects. Compilers disagree. They insist on bitwise constness. What to do?
 
+The solution is simple: take advantage of C++'s `const`-related wiggle room known as **`mutable`**. `mutable` frees non-static data members from the constraints of bitwise constness.
+```C++
+class CTextBlock {
+public:
+  ...
+  std::size_t length() const;
+private:
+  char* pText;
+  // these data members may always be modified, even in const member functions.
+  mutable std::size_t textLength;
+  mutable bool lengthIsValid;
+};
+
+std::size_t CTextBlock::length() const
+{
+  if (!lengthIsValid) {
+    textLength = std::strlen(pText);   // now fine
+    lengthIsValid = true;              // also fine
+  }
+  return textLength;
+}
+```
+
+#### Avoiding Duplication in `const` and Non-`const` Member Functions
 ```C++
 class TextBlock 
 {
@@ -160,9 +232,9 @@ public:
   char& operator[](std::size_t position) // now just calls const op[]
   {
     return 
-      const_cast<char&>(  // cast away const on operator[] return type;
+      const_cast<char&>(                      // cast away const on operator[] return type;
         static_cast<const TextBlock&>(*this)  // add const to *this’s type;
-          [position]  // call const version of op[]
+          [position]                          // call const version of op[]
       );
   }
   ...
