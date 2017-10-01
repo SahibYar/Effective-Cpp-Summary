@@ -17,6 +17,20 @@ You need a way to convert an object of the RAII class (in this case `shared_ptr`
 ```C++
 int days = daysHeld(pInv.get());        // fine, passes the raw pointer in pInv to daysHeld
 ```
+Like virtually all smart pointer classes `shared_ptr` and `auto_ptr` also overload the pointer dereferencing operators (`->` and `*`), and this allows implicit conversion to the underlying raw pointers:
+```C++
+class Investment {            // root class for a hierarchy of investment types
+public:
+    bool isTaxFree() const;
+    ...
+};
+Investment* createInvestment();    // factory function
+shared_ptr<Investment> pi1(createInvestment());    // shared_ptr manage a resource
+bool taxable1 = !(pi1->isTaxFree());        // access resource via operator->
+...
+auto_ptr<Investment> pi2(createInvestment()):    // auto_ptr manage a resource
+bool taxable2 = !((*pi2).isTaxFree());     // access resource via operator*
+```
 
 
 
@@ -26,4 +40,4 @@ int days = daysHeld(pInv.get());        // fine, passes the raw pointer in pInv 
 
 
 
-
+.
