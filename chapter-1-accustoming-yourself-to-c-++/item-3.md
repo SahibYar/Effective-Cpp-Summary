@@ -16,7 +16,7 @@ When what's pointed to is constant, some programmers list `const` before the typ
 void f1(const Widget *pw);      //  f1 takes a pointer to constant Widget object
 void f2(Widget const *pw);      //  so does f2
 ```
-* In **STL** `iterator` acts much like a `T*` pointer. Declaring an `iterator` `const` is like declaring a pointer `const` (i.e. declaring a `T *const` pointer). The STL analogue to a `const T*` pointer is <b>`const_pointer`</b>
+* In **STL** `iterator` acts much like a `T*` pointer. Declaring an `iterator` `const` is like declaring a pointer `const` (i.e. declaring a `T *const` pointer): the iterator isn't allowed to point to something different, but the thing it points to may be modified. If you want an iterator that points to something that can't be modified, the STL analogue to a `const T*` pointer is **`const_pointer`**
 
 ```C++
 std::vector<int> vec;
@@ -29,10 +29,29 @@ std::vector<int>::const_iterator cIter = vec.begin(); //  cIter acts like a cons
 *cIter = 10;                                          //  error! *cIter is const
 ++cIter;                                              //  fine, changes cIter
 ```
-One of the most powerful uses of ```const``` is its application to <i>function declarations</i>. Within a function declaration,
-* ```const``` can refer to the function return type,
+One of the most powerful uses of `const` is its application to _function declarations_. Within a function declaration,
+* `const` can refer to the function return type,
 * to individual parameters,
 * and, for member functions, to the function as a whole.
+===
+Having a a function return a constant value is generally inappropriate, but sometimes doing so can reduce the incidence of client errors with out giving up safety or efficiency. 
+**Example:**
+Consider the declaration of the operator* function for rational numbers:
+```C++
+class Ration { ... };
+const Rational operator* (const Rational& lhs, const Rational& rhs);
+```
+Here the result of `operator*` be a `const` object, if it weren't, clients would be able to commit atrocities like this:
+```C++
+Rational a,b,c;
+...
+(a * b) = c;          // invoke operator= on the result of a*b!
+```
+It is a simple typo (and a type that can be implicitly converted to `bool`):
+```C++
+if (a * b = c) ...    // oops, meant to do a comparison!
+```
+Such code would be flat-out illegal if `a` and `b` were of a built-in type. Declaring `operator*` return value `const` prevents it, and that's why it's The Right Thing To Do in this case.
 
 #### `const` Member Functions
 The purpose of `const` on member functions is to identify which member functions may be invoked on `const` objects. One of the fundamental ways to improve a C++ program's performance is to pass objects by **reference-to-const**. That technique is viable only if there are `const` member functions with which to manipulate the resulting const-qualified objects.
