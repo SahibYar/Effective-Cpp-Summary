@@ -35,11 +35,3 @@ bool taxable2 = !((*pi2).isTaxFree());             // access resource via operat
 **Things to Remember**
 * APIs often require access to raw resource, so each RAII class should offer a way to get to the resource it manages.
 * Access may be via explicit conversion or implicit conversion. In general, explicit conversion is safer, but implicit conversion is more convenient for clients.
-
-
-
-
-
-
-
-.
