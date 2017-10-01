@@ -16,11 +16,11 @@
   * [Item 11](chapter-2-constructors-destructors-and-assignment-operators/item-11.md)
   * [Item 12](chapter-2-constructors-destructors-and-assignment-operators/item-12.md)
 * [Chapter 3 - Resource Management](chapter-3-resource-management.md)
-  * [Item 13](chapter-3-resource-management/item-13.md)
-  * [Item 14](chapter-3-resource-management/item-14.md)
-  * [Item 15](chapter-3-resource-management/item-15.md)
-  * [Item 16](chapter-3-resource-management/item-16.md)
-  * [Item 17](chapter-3-resource-management/item-17.md)
+  * [Item 13 - Use objects to manage resources.](chapter-3-resource-management/item-13.md)
+  * [Item 14 - Think carefully about copying behavior in resource-managing classes.](chapter-3-resource-management/item-14.md)
+  * [Item 15 - Provide access to raw resources in resource-managing classes.](chapter-3-resource-management/item-15.md)
+  * [Item 16 - Use the same form in corresponding uses of \`new\` and \`delete\`.](chapter-3-resource-management/item-16.md)
+  * [Item 17 - Store newed objects in smart pointers in standalone statements.](chapter-3-resource-management/item-17.md)
 * Chapter 4 - Designs and Declarations
   * [Item 18](item-14.md)
   * Item 19
