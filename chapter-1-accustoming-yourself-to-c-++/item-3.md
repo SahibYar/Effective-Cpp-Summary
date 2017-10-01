@@ -34,7 +34,7 @@ One of the most powerful uses of `const` is its application to _function declara
 * to individual parameters,
 * and, for member functions, to the function as a whole.
 
-===
+---
 
 Having a a function return a constant value is generally inappropriate, but sometimes doing so can reduce the incidence of client errors with out giving up safety or efficiency. 
 **Example:**
