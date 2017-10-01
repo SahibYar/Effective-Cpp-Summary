@@ -144,6 +144,7 @@ Surely there is something wrong when you create a constant object with a particu
 This leads to notion of logical constness. Adherents to this philosophy — and you should be among them — argue that a `const` member function might modify some of the bits in the object on which it's invoked, but only in ways that clients cannot detect.
 
 **Example:**
+
 Your `CTextBlock` class might want to cache the length of the textblock whenever it's requested:
 ```C++
 class CTextBlock {
