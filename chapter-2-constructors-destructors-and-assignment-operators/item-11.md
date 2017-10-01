@@ -1,5 +1,5 @@
-### Item 11 - Handle assignemtn to self in `operator=`.
-An assignment ot self occurs when an object is assigned to itself:
+### Item 11 - Handle assignment to self in `operator=`.
+An assignment to self occurs when an object is assigned to itself:
 ```C++
 class Widget { ... };
 Widget w;
@@ -17,7 +17,7 @@ is an assignment to self if `i` and `j` have the same value, and
 is an assignment to self if `px` and `py` happen to point to the same thing. These less obvious assignments to self are the result of _aliasing_
 > Having more than one way to refer to an object.
 
-In general, code that operates on references or pointers to multiple objects of the same type needs to consider that the objects might be the same. In fact, the two objects need not even be declared to be of the same type if they're from the same hierarchy, because a base class reference or poiner can refer or point to an object of a derived class type:
+In general, code that operates on references or pointers to multiple objects of the same type needs to consider that the objects might be the same. In fact, the two objects need not even be declared to be of the same type if they're from the same hierarchy, because a base class reference or pointer can refer or point to an object of a derived class type:
 ```C++
 class Base { ... };
 class Derived: public Base { ... };
@@ -34,7 +34,7 @@ private:
 ```
 Here's an implementation of `operator=` that looks reasonable on the surface but is unsafe in the presence of assignment to self. (It's also not **_exception-safe_**, but we'll deal with that in a moment.)
 ```C++
-Widget& Widget::operator= (const Widget& rhs)    // unsafe impl. of operator=
+Widget& Widget::operator= (const Widget& rhs)    // unsafe implementation of operator=
 {
     delete pb;                    // stop using current bitmap
     pb = new Bitmap(*rhs.pb);     // start using a copy of rhs's bitmap
@@ -57,13 +57,13 @@ Widget& Widget::operator= (const Widget& rhs)
 ```
 This works, because it is self-assignment safe, but it is exception-unsafe. In particular, if the `new Bitmap` expression yields an exception (either because there is insufficient memory for allocation or because Bitmap's copy constructor throws one), the `Widget` will end up holding a pointer to a deleted Bitmap.<sup>[1](#myfootnote1)</sup>Such pointers are toxic. You can't safely delete them. You can't even safely read them.
 
-Happily, making `operator=` exception-safe typically renders it self-assignment-safe too. As a result, it's increasingly common to deal with issues of self-assignment by ignoring them, forcusing instead on achieving exception safety. Here, for example, we just have to be careful not to delete `pb` until after we've copied what it points to:
+Happily, making `operator=` exception-safe typically renders it self-assignment-safe too. As a result, it's increasingly common to deal with issues of self-assignment by ignoring them, focusing instead on achieving exception safety. Here, for example, we just have to be careful not to delete `pb` until after we've copied what it points to:
 ```C++
 Widget& Widget::operator= (const Widget& rhs)
 {
-    Bitmap *pOrig = pb;            // remember orignal pb
+    Bitmap *pOrig = pb;            // remember original pb
     pb = new Bitmap(*rhs.pb);      // point pb to a copy of rh's bitmap
-    delete pOrig;                  // delete the orignal pb
+    delete pOrig;                  // delete the original pb
     
     return *this;
 }
@@ -74,7 +74,7 @@ Now, if "new Bitmap" throws an exception, `pb` (and the `Widget` it's inside of)
 * Make sure `operator=` is well-behaved when an object is assigned to itself. Techniques include comparing addresses of source and target objects, careful statement ordering, and copy-and-swap.
 * Make sure that any function operating on more than one object behaves correctly if two or more of the objects are the same.
 
-<a name="myfootnote1">1</a>: Probably. C++ implementations are permitted to change the value of a deleted pointer (e.g., to null or some other sepcial bit pattern).
+<a name="myfootnote1">1</a>: Probably. C++ implementations are permitted to change the value of a deleted pointer (e.g., to null or some other special bit pattern).
 
 
 

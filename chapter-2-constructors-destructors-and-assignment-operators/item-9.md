@@ -33,7 +33,7 @@ BuyTransaction b;
 ```
 Clearly a `BuyTransaction` constructor will be called, but first, a `Transaction` constructor must be called; base class parts of derived class objects are constructed before derived class parts are. The last line of the `Transaction` constructor calls the virtual function `logTransaction`, but there is where the surprise comes in. The version of `logTransaction` that's called is the one in `Transaction`, not the one in `BuyTransaction` — even though the type of object being created is `BuyTransaction`. During base class construction, virtual functions never go down into derived classes.
 
-In our example, while the `Transaction` constructor is running to initialize the base class part of a `BuyTransaction` object, the object is of type `Transaction`. That's how every parto of C++ will treat it, and the treatment makes sense: the `BuyTransaction` specific parts of the object haven't been initialized yet, so it's safest to treat them as if they didn't exist.
+In our example, while the `Transaction` constructor is running to initialize the base class part of a `BuyTransaction` object, the object is of type `Transaction`. That's how every part of C++ will treat it, and the treatment makes sense: the `BuyTransaction` specific parts of the object haven't been initialized yet, so it's safest to treat them as if they didn't exist.
 > An object doesn't become a derived class object until execution of a derived class constructor begins.
 
 They same reasoning applies during destruction. Once a derived class destructor has run, the object's derived class data members assume undefined values, so C++ treats them as if they no longer exist. Upon entry to the base class destructor, the object becomes a base class object, and all parts of C++ — virtual functions, `dynamic_cast`, etc., — treat it that way.
@@ -85,7 +85,7 @@ In other words, since you can't use virtual functions to call down from base cla
 In this example, note the use of the **_private static_** function **`createLogString`** in `BuyTransaction`. Using the helper function to create a value to pass to a base class constructor is often more convenient than going through contortions in the member initialization list ot give the base class what it needs.
 
 **Things to Remember:**
-* Don't call virtual fucntions during construction or destruction, because such calls will never go to a more derived class than that of the currently executing constructor or destructor.
+* Don't call virtual functions during construction or destruction, because such calls will never go to a more derived class than that of the currently executing constructor or destructor.
 
 
 
