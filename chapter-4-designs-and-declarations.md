@@ -11,9 +11,9 @@ good interface design, but it highlights some of the most important consideratio
 
 [**Item 19:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/) **Treat class design as type design.**
 
-[**Item 20:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/) **Prefer pass-by-reference-to-const tp pass-by-value.**
+[**Item 20:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/) **Prefer pass-by-reference-to-const to pass-by-value.**
 
-[**Item 21:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/) **Don't try to return a refernce when you must return an object.**
+[**Item 21:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/) **Don't try to return a reference when you must return an object.**
 
 [**Item 22:**](https://sahibyar.gitbooks.io/effective-cpp-summary/content/) **Declare data members private.**
 

@@ -22,12 +22,12 @@
   * [Item 16 - Use the same form in corresponding uses of new and delete.](chapter-3-resource-management/item-16.md)
   * [Item 17 - Store newed objects in smart pointers in standalone statements.](chapter-3-resource-management/item-17.md)
 * [Chapter 4 - Designs and Declarations](chapter-4-designs-and-declarations.md)
-  * [Item 18](item-14.md)
-  * Item 19
-  * Item 20
-  * Item 21
-  * Item 22
-  * Item 23
-  * Item 24
-  * Item 25
+  * [Item 18 - Make interfaces easy to use correctly and hard to use incorrectly.](item-14.md)
+  * Item 19 - Treat class design as type design.
+  * Item 20 - Prefer pass-by-reference-to-const to pass-by-value.
+  * [Item 21 - Don't try to return a reference when you must return an object.](item-21.md)
+  * Item 22 - Declare data members private.
+  * Item 23 - Prefer non-member non-friend functions to member functions.
+  * Item 24 - Declare non-member functions when type conversions should apply to all parameters.
+  * Item 25 - Consider support for a non-throwing swap.
 
