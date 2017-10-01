@@ -55,9 +55,14 @@ private:
 ```
 **Note:** The `Lock` class non longer declares a destructor. We know that class's destructor (regardless of whether it is compiler-generated or user-defined) automatically invokes the destructors of the class's non-static data members. In this example, that's `mutexPtr`. But `mutexPtr`'s destructor will automatically call the `shared_ptr`'s deleter — `unlock`, in this case — when the mutex's reference count goes to zero.
 
+* **Copy the underlying resource.** Sometimes you can have as many copies to a resource as you like, and the only reason you need a resource-managing class is to make sure that each copy is released when you're done with it. In that case, copying the resource-managing object should also copy the resource it wraps. That is, copying a resource-managing object performs a "deep copy".
+**Example:** Some implementations of the standard string type consist of pointers to heap memory, where the characters making up the string are stored. Objects of such strings contain a pointer to the heap memory. When a string object is copied, a copy is made of both the pointer and the memory it points to. Such strings exhibit deep copying.
 
+* **Transfer ownership of the underlying resource.** On rare occasion, you may wish to make sure that only one RAII object refers to a raw resource and that when the RAII object is copied, ownership of the resource is transferred from the copied object to the copying object.
 
-
+**Things to Remember**
+* Copying a RAII object entails copying the resource it manages, so the copying behavior of the resource determines the copying behavior of the RAII object.
+* Common RAII class copying behavior are disallowing copying and performing reference counting, but other behaviors are possible.
 
 
 
