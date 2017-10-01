@@ -24,12 +24,13 @@ public:
     bool isTaxFree() const;
     ...
 };
-Investment* createInvestment();    // factory function
+Investment* createInvestment();                    // factory function
+
 shared_ptr<Investment> pi1(createInvestment());    // shared_ptr manage a resource
-bool taxable1 = !(pi1->isTaxFree());        // access resource via operator->
+bool taxable1 = !(pi1->isTaxFree());               // access resource via operator->
 ...
-auto_ptr<Investment> pi2(createInvestment()):    // auto_ptr manage a resource
-bool taxable2 = !((*pi2).isTaxFree());     // access resource via operator*
+auto_ptr<Investment> pi2(createInvestment()):      // auto_ptr manage a resource
+bool taxable2 = !((*pi2).isTaxFree());             // access resource via operator*
 ```
 
 
