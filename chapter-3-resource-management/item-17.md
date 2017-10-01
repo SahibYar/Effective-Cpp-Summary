@@ -27,7 +27,14 @@ In Java and C#, function parameters are always evaluated in particular order, bu
 2. Call `priority`.
 3. Call the `shared_ptr` constructor.
 
-But consider what will happen if the call to `priority`x
+But consider what will happen if the call to `priority` yields an exception. In that case, the pointer return from `new Widget` will be lost, because it won't have been stored in the `shared_ptr` would guard against resource leaks. A leak in the call to `processWidget` can arise because an exception can intervene between the time a resource is created (via `new Widget`) and time that resource is turned over to a resource-managing object.
 
+The way to avoid problem like this is simple: use a separate statement to create the `Widget` and store it in a smart pointer, then pass the smart pointer to `processWidget`
+```C++
+//store newed object in a smart pointer in a standalone statement.
+shared_ptr<Widget> pw(new Widget);
 
-
+processWidget(pw, priority());        // this call won't leak
+```
+**Things to Remember**
+* Store newed objects in smart pointers in standalone statements. Failure to do this can lead to subtle resource leaks when exceptions are thrown.
